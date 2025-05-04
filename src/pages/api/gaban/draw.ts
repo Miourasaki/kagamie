@@ -5,6 +5,7 @@ import { withMethod } from '@/lib/withMethod'
 import { GabanDocument } from '@/models/types'
 import SocketManager from '@/lib/socket'
 import crypto from 'crypto'
+
 function getClientIp(req: NextApiRequest) {
     const cfIp = req.headers['cf-connecting-ip']
     if (cfIp) return Array.isArray(cfIp) ? cfIp[0] : cfIp
@@ -16,7 +17,11 @@ function getClientIp(req: NextApiRequest) {
 
     return req.socket.remoteAddress || 'unknown'
 }
+
 function normalizeColor(color: string): string | null {
+    // Handle clear case
+    if (color === 'clear') return 'clear'
+
     const cleanColor = color.startsWith('#') ? color.slice(1) : color
 
     if (/^[0-9A-Fa-f]{3}$/.test(cleanColor)) {
@@ -29,7 +34,6 @@ function normalizeColor(color: string): string | null {
 
     return null
 }
-
 
 export default withMethod(['POST'], async (req, res) => {
     const { db } = await connectToDatabase()
@@ -45,7 +49,7 @@ export default withMethod(['POST'], async (req, res) => {
 
         const normalizedColor = normalizeColor(color)
         if (!normalizedColor) {
-            return res.status(400).json({ error: 'Invalid color format. Must be 3 or 6 character hex code without alpha.' })
+            return res.status(400).json({ error: 'Invalid color format. Must be 3 or 6 character hex code without alpha or "clear".' })
         }
 
         // 坐标类型转换
@@ -72,8 +76,11 @@ export default withMethod(['POST'], async (req, res) => {
         // 颜色对比校验
         const pixelKey = `${xNum},${yNum}` as const
         const currentColor = gaban.pixels[pixelKey]
-        if (currentColor === normalizedColor) {
-            return res.status(400).json({ error: 'Color exist' })
+        if (normalizedColor !== 'clear' && currentColor === normalizedColor) {
+            return res.status(304).end()
+        }
+        if (normalizedColor === 'clear' && !currentColor) {
+            return res.status(304).end()
         }
 
         // 生成用户标识（在颜色校验之后）
@@ -91,20 +98,12 @@ export default withMethod(['POST'], async (req, res) => {
                 acceptEncoding: headers['accept-encoding'] || '',
                 acceptLanguage: headers['accept-language'] || '',
                 connection: headers['connection'] || '',
-                // 可以添加更多头部信息
-                screenResolution: req.query.screenResolution || '', // 需要前端传递
-                timezone: req.query.timezone || '', // 需要前端传递
-                plugins: req.query.plugins || '', // 需要前端传递
-                fonts: req.query.fonts || '', // 需要前端传递
-                // 添加时间因素减少碰撞
-                timestamp: Date.now()
             };
             const fingerprintString = JSON.stringify(fingerprint)
-            // const hash = Buffer.from(JSON.stringify(fingerprint)).toString('base64').slice(0, 10)
             const hash = crypto.createHash('sha256')
                 .update(fingerprintString)
                 .digest('hex')
-                .slice(0, 10); // 取前16位
+                .slice(0, 10);
             userIdentifier = `Guest#${hash}`
         }
 
@@ -118,10 +117,14 @@ export default withMethod(['POST'], async (req, res) => {
             return res.status(429).json({ error: 'Too Many Request' })
         }
 
-        // 执行像素更新
+        // 执行像素更新或清除
+        const updateOperation = normalizedColor === 'clear' 
+            ? { $unset: { [`pixels.${pixelKey}`]: "" } }
+            : { $set: { [`pixels.${pixelKey}`]: normalizedColor } }
+
         await db.collection('gaban').updateOne(
             { _id: gaban._id },
-            { $set: { [`pixels.${pixelKey}`]: normalizedColor } }
+            updateOperation
         )
 
         // 记录操作历史

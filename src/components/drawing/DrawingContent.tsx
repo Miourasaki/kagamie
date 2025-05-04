@@ -81,13 +81,19 @@ const DrawingContent: React.FC<DarwingProps> = ({ offset, scale, size }) => {
         if (data.value) {
             Object.entries(data.value.pixels).forEach(([key, value]) => {
                 const [i, j] = key.split(",").map(coord => parseInt(coord, 10));
-                offscreenCtx.fillStyle = value;
-                offscreenCtx.fillRect(i, j, 1, 1);
+                if (value == 'clear') offscreenCtx.clearRect(i, j, 1, 1);
+                else {
+                    offscreenCtx.fillStyle = value;
+                    offscreenCtx.fillRect(i, j, 1, 1);
+                }
             });
             Object.entries(update.value).forEach(([key, value]) => {
                 const [i, j] = key.split(",").map(coord => parseInt(coord, 10));
-                offscreenCtx.fillStyle = value;
-                offscreenCtx.fillRect(i, j, 1, 1);
+                if (value == 'clear') offscreenCtx.clearRect(i, j, 1, 1);
+                else {
+                    offscreenCtx.fillStyle = value;
+                    offscreenCtx.fillRect(i, j, 1, 1);
+                }
             });
 
             if (load) setLoad(false);
@@ -120,10 +126,12 @@ const DrawingContent: React.FC<DarwingProps> = ({ offset, scale, size }) => {
         })))
 
         ids.push(canvas.current.draw(transformationDraw((ctx, _) => {
-            if (status.value != ToolStatus.DRAW) return
+            if (status.value != ToolStatus.DRAW && status.value != ToolStatus.ERASER) return
             // ctx.fillRect(0, 0, 10, 10)
             const p = move.value
             ctx.imageSmoothingEnabled = false
+
+            if (status.value == ToolStatus.ERASER) ctx.clearRect(p.x, p.y, 1, 1)
 
             ctx.translate(p.x, p.y)
             ctx.scale(1 / 10, 1 / 10)

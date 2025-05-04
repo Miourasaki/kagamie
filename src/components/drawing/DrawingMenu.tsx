@@ -47,6 +47,9 @@ export default function DrawingMenu() {
                     <button onClick={() => (status.set(ToolStatus.DRAW))} className={`${status.value == ToolStatus.DRAW && 'bg-accent text-accent-foreground'} hover:bg-accent hover:text-accent-foreground px-1 size-8 outline-hidden select-none rounded-sm`}>
                         <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"><path d="M7 16c.55 0 1 .45 1 1c0 1.1-.9 2-2 2c-.17 0-.33-.02-.5-.05c.31-.55.5-1.21.5-1.95c0-.55.45-1 1-1M18.67 3c-.26 0-.51.1-.71.29L9 12.25L11.75 15l8.96-8.96a.996.996 0 0 0 0-1.41l-1.34-1.34c-.2-.2-.45-.29-.7-.29zM7 14c-1.66 0-3 1.34-3 3c0 1.31-1.16 2-2 2c.92 1.22 2.49 2 4 2c2.21 0 4-1.79 4-4c0-1.66-1.34-3-3-3z" fill="currentColor"></path></svg>
                     </button>
+                    <button onClick={() => (status.set(ToolStatus.ERASER))} className={`${status.value == ToolStatus.ERASER && 'bg-accent text-accent-foreground'} hover:bg-accent hover:text-accent-foreground px-[0.3rem] size-8 outline-hidden select-none rounded-sm`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M11.197 2.44a1.5 1.5 0 0 1 2.121 0l4.243 4.242a1.5 1.5 0 0 1 0 2.121L9.364 17H14.5a.5.5 0 0 1 0 1H7.82a1.496 1.496 0 0 1-1.14-.437L2.437 13.32a1.5 1.5 0 0 1 0-2.121l8.76-8.76zM9.78 15.168l-4.95-4.95l-1.687 1.687a.5.5 0 0 0 0 .707l4.243 4.243a.5.5 0 0 0 .707 0l1.687-1.687z" fill="currentColor"></path></g></svg>
+                    </button>
                 </Menubar>
                 <div className='flex items-start gap-3'>
                     <Menubar inert={!openPicker.value} className={`pointer-events-auto z-1 gap-2 flex-col h-auto overflow-auto w-62 p-5 transition-all duration-200 ease-in-out transform ${openPicker.value ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}`}>
@@ -83,7 +86,6 @@ export default function DrawingMenu() {
 
 }
 import { buildInfo } from '@/build-info'
-import { DialogTitle } from "@radix-ui/react-dialog"
 
 const LeftMenu = () => {
 

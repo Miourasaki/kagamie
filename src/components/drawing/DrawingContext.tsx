@@ -28,6 +28,7 @@ interface DrawingContextValue {
 
 export enum ToolStatus {
     DRAW,
+    ERASER,
     MOVE,
     SEARCH,
     SELECT,
@@ -58,7 +59,7 @@ export const DrawingContext = createContext<DrawingContextValue>({
     data: { value: null, set: INITIALIZE_BEFORE },
     update: { value: {}, set: INITIALIZE_BEFORE },
     fetchData: () => Promise.reject(),
-    reset: () => {},
+    reset: () => { },
     subscribe: INITIALIZE_BEFORE,
     unsubscribe: INITIALIZE_BEFORE
 });
@@ -152,7 +153,10 @@ export const DrawingProvider = ({ children }: { children: React.ReactNode }) => 
             socket.on('draw', (d) => {
                 console.log('像素数据更新:', data);
                 data.set(o => {
-                    if (o) o.pixels[`${d.x},${d.y}`] = d.color;
+                    if (o) {
+                        if (d.color == "clear") delete o.pixels[`${d.x},${d.y}`]
+                        else o.pixels[`${d.x},${d.y}`] = d.color;
+                    }
                     return o
                 })
                 update.set({

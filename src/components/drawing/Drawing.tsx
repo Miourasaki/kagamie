@@ -81,7 +81,7 @@ const Main = () => {
         const result: CSSProperties = {};
         switch (status.value) {
             case ToolStatus.DRAW:
-                if (scale.value > 13) result["cursor"] = 'none';
+                // if (scale.value > 13) result["cursor"] = 'none';
                 break;
         }
         return result; // Ensure an object is always returned
@@ -136,10 +136,16 @@ const Main = () => {
                                                     </div>
                                                     <div className='flex h-4 items-center justify-between w-full'>
                                                         <div className='flex items-center gap-1 text-sm'>
-                                                            <span className='size-4 rounded-full' style={{
-                                                                backgroundColor: item.color
-                                                            }}></span>
-                                                            {item.color}</div>
+                                                            {
+                                                                item.color == 'clear' ?
+                                                                    <>Clear Color</>
+                                                                    :
+                                                                    <>
+                                                                        <span className='size-4 rounded-full' style={{
+                                                                            backgroundColor: item.color
+                                                                        }}></span>{item.color}</>
+                                                            }
+                                                        </div>
                                                         <div className='text-xs text-stone-400 font-thin'>{formatTimestamp(item.created)}</div>
                                                     </div>
                                                 </div>
@@ -192,15 +198,17 @@ const Main = () => {
                                     recordDialog.set(true)
                                     break;
                                 }
-                                case ToolStatus.DRAW: {
+                                case ToolStatus.DRAW:
+                                case ToolStatus.ERASER: {
                                     try {
+                                        const c = status.value == ToolStatus.ERASER ? 'clear' : color.value.hex
                                         const response = await fetch(`/api/gaban/draw`, {
                                             method: 'POST',
                                             body: JSON.stringify({
                                                 'gabanId': data.value?._id ?? '',
                                                 'x': pos.x,
                                                 'y': pos.y,
-                                                'color': color.value.hex
+                                                'color': c
                                             }),
                                             headers: {
                                                 'Content-Type': 'application/json'
