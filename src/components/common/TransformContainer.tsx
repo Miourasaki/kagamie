@@ -10,7 +10,7 @@ import React, {
   SetStateAction
 } from 'react';
 import DebugPanel from './DebugPanel';
-import '@/assets/styles/canvas.module.css'
+import style from '@/assets/styles/canvas.module.css'
 import { Vector2 } from '@/lib/type';
 import { StateType } from '@/lib/state';
 
@@ -286,7 +286,7 @@ const TransformContainer = forwardRef<TransformContainerRef, TransformContainerP
           </div>
         </div>
 
-        <div className='grid-bg dots' style={{
+        <div className={`${style['grid-bg']} ${style['dots']}`} style={{
           backgroundSize: `${10 * scale}px ${10 * scale}px`,
           backgroundPosition: `${offset.x + 5}px ${offset.y + 5}px`,
         }} inert></div>

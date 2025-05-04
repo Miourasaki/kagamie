@@ -6,26 +6,26 @@
  * 
  * Script author: 白澪·洛丝塔亚(mio@chyan.moe)
  * 
- * File created on : 2025-05-04T13:45:39.343Z
+ * File created on : 2025-05-04T14:30:02.898Z
  */
 export const buildInfo = {
   "git": {
     "repository": "https://github.com/Miourasaki/kagamie.git",
     "commit": {
-      "hash": "d461891",
-      "hashFull": "d4618916e7447d5f7c6cbba58a6b8ead11f59c0e",
-      "message": "fix: 对不起😭忘记加忽略文件了",
-      "summary": "fix: 对不起😭忘记加忽略文件了",
+      "hash": "5c30594",
+      "hashFull": "5c305943ad8332849d02fd98f870981c69fce706",
+      "message": "fix(style): 修复移动画布时body滚动的问题",
+      "summary": "fix(style): 修复移动画布时body滚动的问题",
       "description": "",
-      "date": "Sun May 4 21:43:58 2025 +0800",
+      "date": "Sun May 4 21:52:31 2025 +0800",
       "author": "白澪 · 卡丝蕾特",
       "authorEmail": "mio@chyan.moe"
     },
     "branch": "master",
-    "tag": "d461891"
+    "tag": "5c30594"
   },
-  "buildDate": "2025-05-04T13:45:39.343Z",
-  "buildTimestamp": 1746366339343,
+  "buildDate": "2025-05-04T14:30:02.897Z",
+  "buildTimestamp": 1746369002898,
   "node": {
     "version": "v20.14.0",
     "project": {
@@ -48,6 +48,7 @@ export const buildInfo = {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
+    "crypto": "^1.0.1",
     "express": "^5.1.0",
     "lucide-react": "^0.503.0",
     "mongodb": "^6.16.0",

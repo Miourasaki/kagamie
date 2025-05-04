@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb'
 import { withMethod } from '@/lib/withMethod'
 import { GabanDocument } from '@/models/types'
 import SocketManager from '@/lib/socket'
-
+import crypto from 'crypto'
 function getClientIp(req: NextApiRequest) {
     const cfIp = req.headers['cf-connecting-ip']
     if (cfIp) return Array.isArray(cfIp) ? cfIp[0] : cfIp
@@ -82,8 +82,29 @@ export default withMethod(['POST'], async (req, res) => {
             // TODO: 用户系统实现
         } else {
             const ip = getClientIp(req)
-            const fingerprint = req.headers['user-agent'] + ip
-            const hash = Buffer.from(fingerprint).toString('base64').slice(0, 10)
+
+            const headers = req.headers;
+            const fingerprint = {
+                userAgent: headers['user-agent'] || '',
+                ip: ip,
+                accept: headers['accept'] || '',
+                acceptEncoding: headers['accept-encoding'] || '',
+                acceptLanguage: headers['accept-language'] || '',
+                connection: headers['connection'] || '',
+                // 可以添加更多头部信息
+                screenResolution: req.query.screenResolution || '', // 需要前端传递
+                timezone: req.query.timezone || '', // 需要前端传递
+                plugins: req.query.plugins || '', // 需要前端传递
+                fonts: req.query.fonts || '', // 需要前端传递
+                // 添加时间因素减少碰撞
+                timestamp: Date.now()
+            };
+            const fingerprintString = JSON.stringify(fingerprint)
+            // const hash = Buffer.from(JSON.stringify(fingerprint)).toString('base64').slice(0, 10)
+            const hash = crypto.createHash('sha256')
+                .update(fingerprintString)
+                .digest('hex')
+                .slice(0, 10); // 取前16位
             userIdentifier = `Guest#${hash}`
         }
 

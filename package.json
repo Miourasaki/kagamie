@@ -23,6 +23,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
+    "crypto": "^1.0.1",
     "express": "^5.1.0",
     "lucide-react": "^0.503.0",
     "mongodb": "^6.16.0",

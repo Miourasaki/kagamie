@@ -1,4 +1,5 @@
-import { Color, hsvToRgb, rgbToHex, rgbToHsv } from '@/lib/utils/color';
+import style from '@/assets/styles/colorpicker.module.css'
+
 import React, { useState, useCallback, useContext } from 'react';
 import { DrawingContext } from './DrawingContext';
 export function invertHex(hex: string) {
@@ -183,7 +184,7 @@ const StripControl: React.FC<StripControlProps> = ({ label, value, max, color, o
                     max={max}
                     value={value}
                     onChange={(e) => onChange(parseInt(e.target.value))}
-                    className="flex-1 h-1 my-0.5 rounded-lg appearance-none cursor-pointer range-slider"
+                    className={`flex-1 h-1 my-0.5 rounded-lg appearance-none cursor-pointer range-slider ${style['range-slider']}`}
                     style={{
                         background: label === 'Hue'
                             ? 'linear-gradient(to right, hsl(0,100%,50%), hsl(60,100%,50%), hsl(120,100%,50%), hsl(180,100%,50%), hsl(240,100%,50%), hsl(300,100%,50%), hsl(360,100%,50%))'

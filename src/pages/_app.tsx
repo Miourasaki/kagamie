@@ -1,6 +1,8 @@
 import FPSDisplay from "@/components/common/FPSDisplay";
 import { BrowserProvider } from "@/store/BrowserContext";
 import "../assets/styles/globals.css";
+import '../assets/styles/loading.css'
+
 import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
