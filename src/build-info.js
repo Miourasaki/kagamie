@@ -6,26 +6,26 @@
  * 
  * Script author: 白澪·洛丝塔亚(mio@chyan.moe)
  * 
- * File created on : 2025-05-04T13:20:50.934Z
+ * File created on : 2025-05-04T13:38:55.505Z
  */
 export const buildInfo = {
   "git": {
     "repository": "https://github.com/Miourasaki/kagamie.git",
     "commit": {
-      "hash": "a68e9dd",
-      "hashFull": "a68e9dd132234bd8edf913c0abd7341bc25b1c88",
-      "message": "Initial commit from Create Next App",
-      "summary": "Initial commit from Create Next App",
+      "hash": "37626e3",
+      "hashFull": "37626e37cd4e0ba50a3c5133f0ab2592dc442983",
+      "message": "feat: 首次提交，完成基础画板",
+      "summary": "feat: 首次提交，完成基础画板",
       "description": "",
-      "date": "Sun Apr 27 04:32:43 2025 +0800",
+      "date": "Sun May 4 21:22:24 2025 +0800",
       "author": "白澪 · 卡丝蕾特",
       "authorEmail": "mio@chyan.moe"
     },
     "branch": "master",
-    "tag": "a68e9dd"
+    "tag": "37626e3"
   },
-  "buildDate": "2025-05-04T13:20:50.933Z",
-  "buildTimestamp": 1746364850934,
+  "buildDate": "2025-05-04T13:38:55.504Z",
+  "buildTimestamp": 1746365935505,
   "node": {
     "version": "v20.14.0",
     "project": {
