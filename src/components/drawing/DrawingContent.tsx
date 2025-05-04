@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import MixCanvas, { DrawFunc, MixCanvasHandle } from "../common/MixCanvas";
-import '@/assets/styles/loading.css'
+import '@/assets/styles/loading.module.css'
 import { Vector2 } from "@/lib/type";
 import { DrawingContext, ToolStatus } from "./DrawingContext";
 import { invertHex } from "./ColorPicker";

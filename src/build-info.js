@@ -6,26 +6,26 @@
  * 
  * Script author: 白澪·洛丝塔亚(mio@chyan.moe)
  * 
- * File created on : 2025-05-04T13:42:53.539Z
+ * File created on : 2025-05-04T13:45:39.343Z
  */
 export const buildInfo = {
   "git": {
     "repository": "https://github.com/Miourasaki/kagamie.git",
     "commit": {
-      "hash": "eb347ea",
-      "hashFull": "eb347ea14f6a3e7c03f7022c0fc4bfb1f15043db",
-      "message": "fix(style): 修复CSS文件为组件CSS",
-      "summary": "fix(style): 修复CSS文件为组件CSS",
+      "hash": "d461891",
+      "hashFull": "d4618916e7447d5f7c6cbba58a6b8ead11f59c0e",
+      "message": "fix: 对不起😭忘记加忽略文件了",
+      "summary": "fix: 对不起😭忘记加忽略文件了",
       "description": "",
-      "date": "Sun May 4 21:41:54 2025 +0800",
+      "date": "Sun May 4 21:43:58 2025 +0800",
       "author": "白澪 · 卡丝蕾特",
       "authorEmail": "mio@chyan.moe"
     },
     "branch": "master",
-    "tag": "eb347ea"
+    "tag": "d461891"
   },
-  "buildDate": "2025-05-04T13:42:53.538Z",
-  "buildTimestamp": 1746366173539,
+  "buildDate": "2025-05-04T13:45:39.343Z",
+  "buildTimestamp": 1746366339343,
   "node": {
     "version": "v20.14.0",
     "project": {

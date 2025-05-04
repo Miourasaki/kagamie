@@ -10,7 +10,7 @@ import React, {
   SetStateAction
 } from 'react';
 import DebugPanel from './DebugPanel';
-import '@/assets/styles/canvas.css'
+import '@/assets/styles/canvas.module.css'
 import { Vector2 } from '@/lib/type';
 import { StateType } from '@/lib/state';
 

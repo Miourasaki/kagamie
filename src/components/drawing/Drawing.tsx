@@ -1,5 +1,5 @@
 import DefaultAvatar from '@/assets/default_avatar.webp'
-import '@/assets/styles/index.css'
+import '@/assets/styles/index.module.css'
 
 import TransformContainer, { TransformContainerRef } from '@/components/common/TransformContainer';
 import React, { CSSProperties, useContext, useEffect, useRef } from 'react';
