@@ -48,7 +48,7 @@ export default function DrawingMenu() {
                         <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"><path d="M7 16c.55 0 1 .45 1 1c0 1.1-.9 2-2 2c-.17 0-.33-.02-.5-.05c.31-.55.5-1.21.5-1.95c0-.55.45-1 1-1M18.67 3c-.26 0-.51.1-.71.29L9 12.25L11.75 15l8.96-8.96a.996.996 0 0 0 0-1.41l-1.34-1.34c-.2-.2-.45-.29-.7-.29zM7 14c-1.66 0-3 1.34-3 3c0 1.31-1.16 2-2 2c.92 1.22 2.49 2 4 2c2.21 0 4-1.79 4-4c0-1.66-1.34-3-3-3z" fill="currentColor"></path></svg>
                     </button>
                     <button onClick={() => (status.set(ToolStatus.ERASER))} className={`${status.value == ToolStatus.ERASER && 'bg-accent text-accent-foreground'} hover:bg-accent hover:text-accent-foreground px-[0.3rem] size-8 outline-hidden select-none rounded-sm`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M11.197 2.44a1.5 1.5 0 0 1 2.121 0l4.243 4.242a1.5 1.5 0 0 1 0 2.121L9.364 17H14.5a.5.5 0 0 1 0 1H7.82a1.496 1.496 0 0 1-1.14-.437L2.437 13.32a1.5 1.5 0 0 1 0-2.121l8.76-8.76zM9.78 15.168l-4.95-4.95l-1.687 1.687a.5.5 0 0 0 0 .707l4.243 4.243a.5.5 0 0 0 .707 0l1.687-1.687z" fill="currentColor"></path></g></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20"><g fill="none"><path d="M11.197 2.44a1.5 1.5 0 0 1 2.121 0l4.243 4.242a1.5 1.5 0 0 1 0 2.121L9.364 17H14.5a.5.5 0 0 1 0 1H7.82a1.496 1.496 0 0 1-1.14-.437L2.437 13.32a1.5 1.5 0 0 1 0-2.121l8.76-8.76zM9.78 15.168l-4.95-4.95l-1.687 1.687a.5.5 0 0 0 0 .707l4.243 4.243a.5.5 0 0 0 .707 0l1.687-1.687z" fill="currentColor"></path></g></svg>
                     </button>
                 </Menubar>
                 <div className='flex items-start gap-3'>
@@ -275,14 +275,42 @@ const LeftMenu = () => {
                 </MenubarContent>
             </MenubarMenu>
             <MenubarMenu>
+                <MenubarTrigger>Canvas</MenubarTrigger>
+                <MenubarContent>
+                    <MenubarCheckboxItem disabled checked>
+                        Background Grid
+                    </MenubarCheckboxItem>
+                    <MenubarCheckboxItem disabled checked>
+                        Point Positioning
+                    </MenubarCheckboxItem>
+                    <MenubarSeparator />
+                    <MenubarItem disabled inset>Reset Position</MenubarItem>
+                    <MenubarItem disabled inset>Reset Zoom</MenubarItem>
+                    <MenubarSeparator />
+                    <MenubarItem disabled inset>Effects Shaders</MenubarItem>
+                </MenubarContent>
+            </MenubarMenu>
+
+            <MenubarMenu>
                 <MenubarTrigger>View</MenubarTrigger>
                 <MenubarContent>
                     <MenubarCheckboxItem disabled>
                         Hide All Panels <MenubarShortcut>tab</MenubarShortcut>
                     </MenubarCheckboxItem>
-                    <MenubarCheckboxItem disabled checked>
-                        Background Grid
-                    </MenubarCheckboxItem>
+                    <MenubarItem disabled inset>
+                        导入参考图
+                    </MenubarItem>
+                    <MenubarSub>
+                        <MenubarSubTrigger inset>参考图1</MenubarSubTrigger>
+                        <MenubarSubContent>
+                            <MenubarItem disabled>固定位置</MenubarItem>
+                            <MenubarItem disabled>重置位置</MenubarItem>
+                            <MenubarSeparator />
+                            <MenubarItem disabled>放大</MenubarItem>
+                            <MenubarItem disabled>缩小</MenubarItem>
+                            <MenubarItem disabled>切换图源</MenubarItem>
+                        </MenubarSubContent>
+                    </MenubarSub>
                     <MenubarSeparator />
                     <MenubarItem onClick={() => fetchData()} inset>
                         Reload <MenubarShortcut>⌘R</MenubarShortcut>
@@ -297,29 +325,6 @@ const LeftMenu = () => {
                     <MenubarItem disabled inset>Hide Sidebar</MenubarItem>
                 </MenubarContent>
             </MenubarMenu>
-            <MenubarMenu>
-                <MenubarTrigger>Window</MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem disabled>
-                        导入参考图
-                    </MenubarItem>
-                    <MenubarSub>
-                        <MenubarSubTrigger>参考图1</MenubarSubTrigger>
-                        <MenubarSubContent>
-                            <MenubarItem disabled>固定位置</MenubarItem>
-                            <MenubarItem disabled>重置位置</MenubarItem>
-                            <MenubarSeparator />
-                            <MenubarItem disabled>放大</MenubarItem>
-                            <MenubarItem disabled>缩小</MenubarItem>
-                            <MenubarItem disabled>切换图源</MenubarItem>
-                        </MenubarSubContent>
-                    </MenubarSub>
-
-                    <MenubarSeparator />
-                    <MenubarItem disabled>特效着色器</MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
-
         </Menubar>
     </>)
 }
