@@ -1,10 +1,10 @@
 {
   "name": "kagamie",
-  "version": "Alpha.54.79050",
+  "version": "Alpha.2519.11",
   "private": true,
   "scripts": {
-    "dev": "node generate-build-info.js && nodemon",
-    "build": "node generate-build-info.js && next build && tsc --project tsconfig.server.json",
+    "dev": "node scripts/generate-build-info.js && nodemon",
+    "build": "node scripts/generate-build-info.js && next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node dist/server.js",
     "lint": "next lint"
   },
