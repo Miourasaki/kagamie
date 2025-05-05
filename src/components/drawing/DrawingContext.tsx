@@ -151,7 +151,7 @@ export const DrawingProvider = ({ children }: { children: React.ReactNode }) => 
             });
 
             socket.on('draw', (d) => {
-                console.log('像素数据更新:', data);
+                console.log('像素数据更新:', d);
                 data.set(o => {
                     if (o) {
                         if (d.color == "clear") delete o.pixels[`${d.x},${d.y}`]
@@ -159,10 +159,10 @@ export const DrawingProvider = ({ children }: { children: React.ReactNode }) => 
                     }
                     return o
                 })
-                update.set({
-                    [`${d.x},${d.y}`]: d.color,
-                    ...update.value
-                })
+                update.set(prev => ({
+                    ...prev,  // 保留所有顶层属性
+                    [`${d.x},${d.y}`]: d.color  // 添加/更新特定属性
+                }))
             });
 
         } catch (error) {

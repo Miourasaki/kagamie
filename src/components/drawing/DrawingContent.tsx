@@ -87,15 +87,6 @@ const DrawingContent: React.FC<DarwingProps> = ({ offset, scale, size }) => {
                     offscreenCtx.fillRect(i, j, 1, 1);
                 }
             });
-            Object.entries(update.value).forEach(([key, value]) => {
-                const [i, j] = key.split(",").map(coord => parseInt(coord, 10));
-                if (value == 'clear') offscreenCtx.clearRect(i, j, 1, 1);
-                else {
-                    offscreenCtx.fillStyle = value;
-                    offscreenCtx.fillRect(i, j, 1, 1);
-                }
-            });
-
             if (load) setLoad(false);
         }
 
@@ -107,7 +98,7 @@ const DrawingContent: React.FC<DarwingProps> = ({ offset, scale, size }) => {
             offscreenCanvasRef.current = null;
             offscreenCtxRef.current = null;
         };
-    }, [data.value, update.value]);
+    }, [data.value]);
 
     useEffect(() => {
         if (!canvas.current) return
@@ -123,6 +114,15 @@ const DrawingContent: React.FC<DarwingProps> = ({ offset, scale, size }) => {
                 size.x,
                 size.y
             );
+
+            Object.entries(update.value).forEach(([key, value]) => {
+                const [i, j] = key.split(",").map(coord => parseInt(coord, 10));
+                if (value == 'clear') ctx.clearRect(i, j, 1, 1);
+                else {
+                    ctx.fillStyle = value;
+                    ctx.fillRect(i, j, 1, 1);
+                }
+            });
         })))
 
         ids.push(canvas.current.draw(transformationDraw((ctx, _) => {
@@ -152,7 +152,7 @@ const DrawingContent: React.FC<DarwingProps> = ({ offset, scale, size }) => {
         return () => {
             for (const id of ids) canvas.current?.clear(id)
         }
-    }, [offset[0], scale[0], move, status])
+    }, [offset[0], scale[0], move.value, status.value, update.value])
 
 
     return (<>

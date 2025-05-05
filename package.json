@@ -1,6 +1,6 @@
 {
   "name": "kagamie",
-  "version": "0.1.0.0",
+  "version": "Alpha.54.79050",
   "private": true,
   "scripts": {
     "dev": "node generate-build-info.js && nodemon",
